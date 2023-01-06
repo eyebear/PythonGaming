@@ -1,7 +1,10 @@
 import random
+import os
+
 gameMap = [['+']*8 for r in range(8)]
 playerPos = [0,0]
 def printMap():
+    os.system('cls' if os.name == 'nt' else 'clear')
     for i in range(8):
         string = ""
         for j in range(len(gameMap[i])):
@@ -26,27 +29,36 @@ def resetGame():
 def moveLeft():
     gameMap[playerPos[0]][playerPos[1]] = '+'
     playerPos[1] -= 1
+    monsterCheck()
     gameMap[playerPos[0]][playerPos[1]] = 'P'
     printMap()
 def moveRight():
     gameMap[playerPos[0]][playerPos[1]] = '+'
     playerPos[1] += 1
+    monsterCheck()
     gameMap[playerPos[0]][playerPos[1]] = 'P'
     printMap()
 def moveUp():
     gameMap[playerPos[0]][playerPos[1]] = '+'
     playerPos[0] -= 1
+    monsterCheck()
     gameMap[playerPos[0]][playerPos[1]] = 'P'
     printMap()
 def moveDown():
     gameMap[playerPos[0]][playerPos[1]] = '+'
     playerPos[0] += 1
+    monsterCheck()
     gameMap[playerPos[0]][playerPos[1]] = 'P'
     printMap()
 
+def monsterCheck():
+    if gameMap[playerPos[0]][playerPos[1]] == 'M':
+      print("You met a monster. Your player died")
+      exit()
+
 def play():
     resetGame()
-    cmd = input("Enter Command wasd to move or x to quit")
+    cmd = input("Enter Command wasd to move or x to quit: ")
     while cmd !="X":
         if cmd == "w":
             moveUp()
@@ -61,7 +73,7 @@ def play():
         if playerPos[0] == 7 and playerPos[1]==7:
             print("You have found the gold!")
             break
-        cmd = input("Enter Command wasd to move or x to quit")
+        cmd = input("Enter Command wasd to move or x to quit: ")
 
 play()
 
